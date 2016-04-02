@@ -91,6 +91,17 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
         protected void onPreExecute() {
             super.onPreExecute();
 
+            //Show progress bar
+            if(progressBarWeakReference != null)
+            {
+                ProgressBar progressBar = progressBarWeakReference.get();
+                if(progressBar != null)
+                {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            }
+
+            //Get how large the imageView is (so it can be sized)
             if(imageViewReference != null)
             {
                 ImageView imageView = imageViewReference.get();
@@ -100,6 +111,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
                     imageHeight = imageView.getHeight();
                 }
             }
+
         }
 
         // Decode image in background.
@@ -143,7 +155,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
                 final ProgressBar progressBar = progressBarWeakReference.get();
                 if(progressBar != null)
                 {
-                    progressBar.setVisibility(View.GONE);
+//                    progressBar.setVisibility(View.GONE);
                 }
             }
 
