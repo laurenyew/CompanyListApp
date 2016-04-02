@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">CompanyList</string>
+    <!--Company Detail default info-->
     <string name="default_logo">N/A</string>
     <string name="default_phone_number">Unknown Phone Number</string>
     <string name="default_address">Unknown Address</string>
+
+    <!--Commonly used buttons-->
+    <string name="ok">Ok</string>
+
+    <!--Error Messages-->
+    <string name="error_title">Error</string>
+    <string name="data_connection_error_message">Could not connect to database.</string>
+    <string name="cache_connection_error_message">Could not connect to cache.</string>
+    <string name="unknown_error_message">Unknown error occurred.</string>
 </resources>

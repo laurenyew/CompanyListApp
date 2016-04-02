@@ -52,12 +52,9 @@ import bottlerocket.laurenyew.companylist.model.Stores;
 
                 try {
                     fetchCompanyList(url);
-                }catch(MalformedURLException e)
-                {
-                    return Result.MALFORMED_URL_ERROR;
                 }catch(IOException e)
                 {
-                    return Result.IO_ERROR;
+                    return Result.DATA_CONNECTION_NOT_AVAILABLE;
                 }
 
                 return Result.SUCCESS;

@@ -13,6 +13,7 @@ public class CompanyListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_list);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
         //If not rotated, then show the company list fragment
         if (savedInstanceState == null) {
@@ -20,7 +21,6 @@ public class CompanyListActivity extends AppCompatActivity {
                 CompanyListFragment companyListFragment = new CompanyListFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.company_list_fragment_container, companyListFragment);
-                transaction.addToBackStack(null);
                 transaction.commit();
             }
         }

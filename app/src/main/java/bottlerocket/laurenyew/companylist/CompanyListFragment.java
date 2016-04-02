@@ -1,8 +1,10 @@
 package bottlerocket.laurenyew.companylist;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -93,5 +95,26 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     @Override
     public void onFetchComplete(Result result) {
         System.out.println("Fetch complete. Result: " + result);
+        if(result != Result.SUCCESS) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.error_title);
+
+            if (result == Result.DATA_CONNECTION_NOT_AVAILABLE) {
+                builder.setMessage(R.string.data_connection_error_message);
+            } else if (result == Result.UNKNNOWN_ERROR) {
+                builder.setMessage(R.string.unknown_error_message);
+            }
+
+            // Add Ok Button
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 }

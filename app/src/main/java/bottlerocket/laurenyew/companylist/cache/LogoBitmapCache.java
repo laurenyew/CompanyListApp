@@ -9,6 +9,8 @@ import android.util.LruCache;
  * Singleton cache. Used for Company Preview and Company Detail view
  *
  * Using Url as the key (similar stores may use same logo).
+ *
+ * TODO: Need to store images in database?
  */
 public class LogoBitmapCache {
     private static LogoBitmapCache mInstance;
