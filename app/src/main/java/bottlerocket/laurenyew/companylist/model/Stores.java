@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * Created by laurenyew on 4/2/16.
  */
 public class Stores {
-    public ArrayList<CompanyDetail> stores;
+
+    public ArrayList<CompanyDetail> stores = new ArrayList<>();
 
     public ArrayList<CompanyDetail> getStores() {
         return stores;

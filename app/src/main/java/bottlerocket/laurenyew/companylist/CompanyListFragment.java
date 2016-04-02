@@ -3,6 +3,8 @@ package bottlerocket.laurenyew.companylist;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
 
     private WeakReference<FetchCompanyListAsyncTask> fetchCompanyListAsyncTaskRef = null;
 
+    private RecyclerView mCompanyListRecyclerView = null;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +37,13 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_company_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_company_list, container, false);
+
+        mCompanyListRecyclerView = (RecyclerView) view.findViewById(R.id.company_list_recycler_view);
+        mCompanyListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mCompanyListRecyclerView.setAdapter(new CompanyListAdapter());
+
+        return view;
     }
 
     @Override
@@ -83,7 +93,5 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     @Override
     public void onFetchComplete(Result result) {
         System.out.println("Fetch complete. Result: " + result);
-        TextView textView = (TextView) getView().findViewById(R.id.company_list_info);
-        textView.setText("DONE");
     }
 }

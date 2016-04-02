@@ -7,14 +7,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:id="@+id/company_list_info"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/company_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="HELLO THERE"/>
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/company_list_recycler_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical" />-->
+        android:orientation="vertical" />
 </RelativeLayout>

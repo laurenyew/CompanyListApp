@@ -31,10 +31,9 @@ import bottlerocket.laurenyew.companylist.model.Stores;
      */
     public class FetchCompanyListAsyncTask extends AsyncTask<String, Void, Result> {
 
-    //Implement Observer Pattern to break out AsyncTask from fragment
     public interface FetchCompanyListUpdateListener {
-        public void onStartFetch();
-        public void onFetchComplete(Result result);
+        void onStartFetch();
+        void onFetchComplete(Result result);
     }
     private List<FetchCompanyListUpdateListener> listeners = new ArrayList<FetchCompanyListUpdateListener>();
 

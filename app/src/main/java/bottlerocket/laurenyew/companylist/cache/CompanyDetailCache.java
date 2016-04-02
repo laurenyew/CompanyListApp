@@ -6,18 +6,18 @@ import bottlerocket.laurenyew.companylist.model.Stores;
 /**
  * Created by laurenyew on 4/1/16.
  *
- * Single instance storeCache
+ * Singleton cache. Used for Company Preview and Company Detail view
  *
- * TODO: Create eviction strategy
+ * TODO: Create eviction strategy?
  */
 public class CompanyDetailCache {
 
     private static CompanyDetailCache mInstance = null;
-    private Stores stores;
+    private Stores mCache;
 
     private CompanyDetailCache()
     {
-        stores = new Stores();
+        mCache = new Stores();
     }
 
     public static CompanyDetailCache getInstance()
@@ -31,12 +31,17 @@ public class CompanyDetailCache {
 
     public void setStoreCache(Stores stores)
     {
-        this.stores = stores;
+        mCache = stores;
     }
 
     public CompanyDetail getDetail(int index)
     {
-        return stores.get(index);
+        return mCache.get(index);
+    }
+
+    public int size()
+    {
+        return mCache.getStores().size();
     }
 
 
@@ -44,7 +49,7 @@ public class CompanyDetailCache {
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        for(CompanyDetail detail: stores.getStores())
+        for(CompanyDetail detail: mCache.getStores())
         {
             builder.append(detail + "\n");
         }
