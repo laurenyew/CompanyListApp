@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">CompanyList</string>
+    <string name="company_list_activity_label">Company List</string>
+    <string name="company_detail_activity_label">Company Detail</string>
+
     <!--Company Detail default info-->
     <string name="default_logo">N/A</string>
     <string name="default_phone_number">Unknown Phone Number</string>
     <string name="default_address">Unknown Address</string>
+    <string name="no_data_available">No data available.</string>
 
     <!--Commonly used buttons-->
     <string name="ok">Ok</string>

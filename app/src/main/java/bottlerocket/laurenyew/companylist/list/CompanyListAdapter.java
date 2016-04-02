@@ -1,8 +1,7 @@
-package bottlerocket.laurenyew.companylist;
+package bottlerocket.laurenyew.companylist.list;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,9 +15,11 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import bottlerocket.laurenyew.companylist.R;
 import bottlerocket.laurenyew.companylist.cache.CompanyDetailCache;
 import bottlerocket.laurenyew.companylist.cache.LogoBitmapCache;
 import bottlerocket.laurenyew.companylist.model.CompanyDetail;
+import bottlerocket.laurenyew.companylist.util.BitmapImageUtil;
 
 /**
  * Created by laurenyew on 4/2/16.
@@ -45,11 +46,11 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
 
     @Override
     public void onBindViewHolder(CompanyPreviewViewHolder holder, int position) {
+
         CompanyDetail detail = companyDetailCache.getDetail(position);
         loadLogoBitmap(detail.getStoreLogoURL(), holder.mLogo, holder.mLogoProgressBar);
         holder.mPhone.setText(detail.getPhone());
         holder.mAddress.setText(detail.getAddress());
-
     }
 
     @Override
@@ -70,16 +71,35 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
 
     /**
      * Load image bitmap from url in the background
+     *
+     * TODO: Slow performance when loading an image. Maybe do a pre-fetch? Or store in database...
      */
     private class LoadLogoBitmapAsyncTask extends AsyncTask<String, Void, Bitmap> {
         private final WeakReference<ImageView> imageViewReference;
         private final WeakReference<ProgressBar> progressBarWeakReference;
+        private int imageWidth = 1000;
+        private int imageHeight = 1000;
         private String urlPath = null;
 
         public LoadLogoBitmapAsyncTask(ImageView imageView, ProgressBar progressBar) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             imageViewReference = new WeakReference<ImageView>(imageView);
             progressBarWeakReference = new WeakReference<ProgressBar>(progressBar);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            if(imageViewReference != null)
+            {
+                ImageView imageView = imageViewReference.get();
+                if(imageView != null)
+                {
+                    imageWidth = imageView.getWidth();
+                    imageHeight = imageView.getHeight();
+                }
+            }
         }
 
         // Decode image in background.
@@ -95,7 +115,10 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
                     connection.setDoInput(true);
                     connection.connect();
                     InputStream input = connection.getInputStream();
-                    logoBitmap = BitmapFactory.decodeStream(input);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = BitmapImageUtil.calculateInSampleSize(options,imageWidth, imageHeight);
+
+                    logoBitmap = BitmapFactory.decodeStream(input, null, options);
 
 
                     //add to our LogoBitmapCache for future reference

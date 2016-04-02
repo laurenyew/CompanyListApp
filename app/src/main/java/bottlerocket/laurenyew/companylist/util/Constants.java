@@ -1,4 +1,4 @@
-package bottlerocket.laurenyew.companylist;
+package bottlerocket.laurenyew.companylist.util;
 
 /**
  * Created by laurenyew on 4/2/16.

@@ -1,13 +1,17 @@
-package bottlerocket.laurenyew.companylist;
+package bottlerocket.laurenyew.companylist.list;
 
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import bottlerocket.laurenyew.companylist.R;
+
 /**
  * TODO: Use BottleRocket's ground control
  */
-public class CompanyListActivity extends AppCompatActivity {
+public class CompanyListActivity extends AppCompatActivity{
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,4 +29,5 @@ public class CompanyListActivity extends AppCompatActivity {
             }
         }
     }
+
 }

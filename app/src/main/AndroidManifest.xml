@@ -8,12 +8,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CompanyListActivity">
+        <activity
+            android:name=".list.CompanyListActivity"
+            android:label="@string/company_list_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".detail.CompanyDetailActivity"
+            android:label="@string/company_detail_activity_label">
         </activity>
     </application>
 

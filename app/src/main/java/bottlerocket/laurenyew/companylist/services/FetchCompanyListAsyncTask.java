@@ -12,13 +12,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import bottlerocket.laurenyew.companylist.cache.CompanyDetailCache;
-import bottlerocket.laurenyew.companylist.Constants;
+import bottlerocket.laurenyew.companylist.util.Constants;
 import bottlerocket.laurenyew.companylist.model.Stores;
 
 /**

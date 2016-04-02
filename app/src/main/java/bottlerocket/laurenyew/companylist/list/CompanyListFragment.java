@@ -1,4 +1,4 @@
-package bottlerocket.laurenyew.companylist;
+package bottlerocket.laurenyew.companylist.list;
 
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -10,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+
+import bottlerocket.laurenyew.companylist.R;
 import bottlerocket.laurenyew.companylist.services.FetchCompanyListAsyncTask;
 import bottlerocket.laurenyew.companylist.services.Result;
+import bottlerocket.laurenyew.companylist.util.Constants;
 
 /**
  * Created by laurenyew on 4/1/16.
