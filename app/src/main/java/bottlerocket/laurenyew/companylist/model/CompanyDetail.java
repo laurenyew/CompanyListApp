@@ -1,4 +1,4 @@
-package bottlerocket.laurenyew.companylist;
+package bottlerocket.laurenyew.companylist.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -24,17 +24,26 @@ public class CompanyDetail {
     private String address;
     private String city;
     private String name;
-    private double latitude;
-    private int zipcode;
-    private String storeLogoUrl;
+    private String latitude;
+    private String zipcode;
+    private String storeLogoURL;
     private String phone;
-    private double longitude;
-    private String storeId;
+    private String longitude;
+    private String storeID;
     private String state;
 
     public CompanyDetail()
     {
-
+        address = "";
+        city = "";
+        name = "";
+        latitude = "";
+        zipcode = "";
+        storeLogoURL = "";
+        phone = "";
+        longitude = "";
+        storeID = "";
+        state = "";
     }
 
     public String getAddress() {
@@ -49,28 +58,28 @@ public class CompanyDetail {
         return name;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public int getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
-    public String getStoreLogoUrl() {
-        return storeLogoUrl;
+    public String getStoreLogoURL() {
+        return storeLogoURL;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public String getStoreId() {
-        return storeId;
+    public String getStoreID() {
+        return storeID;
     }
 
     public String getState() {
