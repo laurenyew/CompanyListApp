@@ -17,4 +17,6 @@ NOTE: The instructions requested a ListView, but used a RecyclerView instead.
 Extra features:
 - Phone number on detail page is linked to open native phone
 - Displaying latitude/longitude in detail page was replaced with a button that opens Google Maps with the appropriate latitude/longitude
-
+- Toolbar on CompanyList view to compare the image loading performance of Picasso (3rd party tool) and self-build AsyncTask + LruCache. Picasso seems to have better performance overall, but wanted to show a self-implemented solution without using a 3rd party tool. 
+NOTE: This comparison is limited since the Picasso cache is not cleared. Thus, after opening the Picasso tab once, subsequent uses of the Picasso tab will maintain its current cache.
+NOTE2: To allow for the comparison, the image/JSON caches will be cleared when switching tabs, causing a refresh fetch.
