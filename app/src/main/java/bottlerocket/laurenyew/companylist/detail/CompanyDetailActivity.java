@@ -29,7 +29,7 @@ public class CompanyDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().setHomeButtonEnabled(true);
         setContentView(R.layout.activity_company_detail);
 
         if (savedInstanceState == null) {
@@ -47,8 +47,6 @@ public class CompanyDetailActivity extends AppCompatActivity {
     private void initCompanyDetailView()
     {
         CompanyDetail detail = CompanyDetailCache.getInstance().getDetail(detailIndex);
-
-        System.out.println("Init detail view with detail: " + detail);
 
         if(detail != null)
         {

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.lang.ref.WeakReference;
 
@@ -29,19 +30,23 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     private WeakReference<FetchCompanyListAsyncTask> fetchCompanyListAsyncTaskRef = null;
 
     private RecyclerView mCompanyListRecyclerView = null;
+    private ProgressBar mCompanyListProgressBar = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         if(!isFetchListComplete()) {
-            initList();
+            showProgressBar();
+            initListWithAsyncTask();
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_company_list, container, false);
+
+        mCompanyListProgressBar = (ProgressBar) view.findViewById(R.id.company_list_load_progress_bar);
 
         mCompanyListRecyclerView = (RecyclerView) view.findViewById(R.id.company_list_recycler_view);
         mCompanyListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -66,10 +71,11 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
                 !this.fetchCompanyListAsyncTaskRef.get().getStatus().equals(AsyncTask.Status.FINISHED);
     }
 
+
     /***
      * Start the async task to load the list
      */
-    private void initList()
+    private void initListWithAsyncTask()
     {
         FetchCompanyListAsyncTask asyncTask = new FetchCompanyListAsyncTask();
         fetchCompanyListAsyncTaskRef = new WeakReference<>(asyncTask);
@@ -81,23 +87,18 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     /**
      * implementing FetchCompanyListUpdateListener
      *
-     * Show progress bar
-     */
-    @Override
-    public void onStartFetch() {
-        System.out.println("Start Fetch");
-    }
-
-    /**
-     * implementing FetchCompanyListUpdateListener
-     *
      * Update the list UI
      * @param result
      */
     @Override
     public void onFetchComplete(Result result) {
         System.out.println("Fetch complete. Result: " + result);
-        if(result != Result.SUCCESS) {
+        if(result == Result.SUCCESS)
+        {
+            hideProgressBar();
+        }
+        else
+        {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.error_title);
 
@@ -117,6 +118,32 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
 
             AlertDialog dialog = builder.create();
             dialog.show();
+        }
+    }
+
+    private void showProgressBar()
+    {
+        //show progress bar, hide recyclerView
+        if(mCompanyListProgressBar != null)
+        {
+            mCompanyListProgressBar.setVisibility(View.VISIBLE);
+        }
+        if(mCompanyListRecyclerView != null)
+        {
+            mCompanyListRecyclerView.setVisibility(View.GONE);
+        }
+    }
+
+    private void hideProgressBar()
+    {
+
+        if(mCompanyListProgressBar != null)
+        {
+            mCompanyListProgressBar.setVisibility(View.GONE);
+        }
+        if(mCompanyListRecyclerView != null)
+        {
+            mCompanyListRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 }

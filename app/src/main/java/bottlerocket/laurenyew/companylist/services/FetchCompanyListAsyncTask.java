@@ -31,16 +31,9 @@ import bottlerocket.laurenyew.companylist.model.Stores;
     public class FetchCompanyListAsyncTask extends AsyncTask<String, Void, Result> {
 
     public interface FetchCompanyListUpdateListener {
-        void onStartFetch();
         void onFetchComplete(Result result);
     }
     private List<FetchCompanyListUpdateListener> listeners = new ArrayList<FetchCompanyListUpdateListener>();
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        notifyListenersOfStartFetch();
-    }
 
     @Override
         protected Result doInBackground(String... params)
@@ -116,14 +109,6 @@ import bottlerocket.laurenyew.companylist.model.Stores;
         public void removeListener(FetchCompanyListUpdateListener listUpdateListener)
         {
             listeners.remove(listUpdateListener);
-        }
-
-        private void notifyListenersOfStartFetch()
-        {
-            for(FetchCompanyListUpdateListener listener: listeners)
-            {
-                listener.onStartFetch();
-            }
         }
 
         private void notifyListenersOfFetchComplete(Result result)
