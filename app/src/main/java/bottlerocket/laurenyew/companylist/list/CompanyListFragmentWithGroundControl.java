@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 import java.lang.ref.WeakReference;
 
 import bottlerocket.laurenyew.companylist.R;
-import bottlerocket.laurenyew.companylist.cache.CompanyDetailCache;
 import bottlerocket.laurenyew.companylist.services.FetchCompanyListAsyncTask;
 import bottlerocket.laurenyew.companylist.services.Result;
 import bottlerocket.laurenyew.companylist.util.Constants;
@@ -23,7 +22,7 @@ import bottlerocket.laurenyew.companylist.util.Constants;
 /**
  * Created by laurenyew on 4/1/16.
  */
-public class CompanyListFragment extends android.support.v4.app.Fragment implements FetchCompanyListAsyncTask.FetchCompanyListUpdateListener{
+public class CompanyListFragmentWithGroundControl extends android.support.v4.app.Fragment implements FetchCompanyListAsyncTask.FetchCompanyListUpdateListener{
 
     private WeakReference<FetchCompanyListAsyncTask> fetchCompanyListAsyncTaskRef = null;
 
@@ -53,7 +52,6 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     public void onResume() {
         super.onResume();
 
-
         if(!isFetchListComplete()) {
             showProgressBar();
             initListWithAsyncTask();
@@ -70,14 +68,10 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
         super.onPause();
     }
 
-    /**
-     * In this simple case, if the cache is filled, then the fetch call must have completed.
-     * In a more complicated case, we may have to try a paging model, but it was not necessary
-     * at this time.
-     * @return
-     */
     private boolean isFetchListComplete() {
-        return !CompanyDetailCache.getInstance().isEmpty();
+        return this.fetchCompanyListAsyncTaskRef != null &&
+                this.fetchCompanyListAsyncTaskRef.get() != null &&
+                !this.fetchCompanyListAsyncTaskRef.get().getStatus().equals(AsyncTask.Status.FINISHED);
     }
 
 

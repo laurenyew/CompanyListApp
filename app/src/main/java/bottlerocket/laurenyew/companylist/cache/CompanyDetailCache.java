@@ -42,6 +42,16 @@ public class CompanyDetailCache {
         return mCache.getStores().size();
     }
 
+    public boolean isEmpty()
+    {
+        return size() <= 0;
+    }
+
+    public void clear()
+    {
+        mCache.getStores().clear();
+    }
+
 
     @Override
     public String toString()

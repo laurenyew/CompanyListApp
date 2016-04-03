@@ -29,7 +29,6 @@ public class CompanyDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setHomeButtonEnabled(true);
         setContentView(R.layout.activity_company_detail);
 
         if (savedInstanceState == null) {

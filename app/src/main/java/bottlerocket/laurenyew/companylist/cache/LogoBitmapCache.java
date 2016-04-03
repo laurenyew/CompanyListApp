@@ -55,4 +55,9 @@ public class LogoBitmapCache {
     {
         return mCache.get(storeId);
     }
+
+    public void clear()
+    {
+        mCache.evictAll();
+    }
 }

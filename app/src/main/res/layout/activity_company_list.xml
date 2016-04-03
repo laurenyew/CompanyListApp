@@ -3,11 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".list.CompanyListActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbar_top_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/Theme.AppCompat.CompactMenu"
+        app:title="@string/app_name"/>
+
+
+    </android.support.design.widget.AppBarLayout>
     <FrameLayout
         android:id="@+id/company_list_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar_top_container"/>
 </RelativeLayout>

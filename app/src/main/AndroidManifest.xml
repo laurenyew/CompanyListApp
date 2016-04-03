@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".list.CompanyListActivity"
-            android:label="@string/company_list_activity_label">
+            android:label="@string/company_list_activity_label"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

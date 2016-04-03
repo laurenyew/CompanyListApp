@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_async_task"
+        android:title="AsyncTask"
+        app:showAsAction="always"
+        android:enabled="false"
+        />
+    <item
+        android:id="@+id/action_ground_control"
+        android:title="GroundControl"
+        app:showAsAction="always"
+        android:enabled="true"
+        />
+
+</menu>
