@@ -7,8 +7,6 @@ import bottlerocket.laurenyew.companylist.model.Stores;
  * Created by laurenyew on 4/1/16.
  *
  * Singleton cache. Used for Company Preview and Company Detail view
- *
- * TODO: Create eviction strategy?
  */
 public class CompanyDetailCache {
 

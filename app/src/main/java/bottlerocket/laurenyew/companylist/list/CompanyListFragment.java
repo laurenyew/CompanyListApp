@@ -21,9 +21,6 @@ import bottlerocket.laurenyew.companylist.util.Constants;
 
 /**
  * Created by laurenyew on 4/1/16.
- *
- * TODO: Check observable pattern does not break on rotate/fragment life cycles.
- * TODO: Check for memory leaks...
  */
 public class CompanyListFragment extends android.support.v4.app.Fragment implements FetchCompanyListAsyncTask.FetchCompanyListUpdateListener{
 
