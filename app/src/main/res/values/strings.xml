@@ -3,10 +3,12 @@
     <string name="company_list_activity_label">Company List</string>
     <string name="company_detail_activity_label">Company Detail</string>
 
+    <!--Company Detail Title Labels-->
+    <string name="phone_card_title">Phone Number</string>
+    <string name="address_card_title">Address</string>
+
     <!--Company Detail default info-->
-    <string name="default_logo">N/A</string>
-    <string name="default_phone_number">Unknown Phone Number</string>
-    <string name="default_address">Unknown Address</string>
+    <string name="unknown">Unknown</string>
     <string name="no_data_available">No data available.</string>
 
     <!--Commonly used buttons-->
@@ -17,4 +19,5 @@
     <string name="data_connection_error_message">Could not connect to database.</string>
     <string name="cache_connection_error_message">Could not connect to cache.</string>
     <string name="unknown_error_message">Unknown error occurred.</string>
+
 </resources>

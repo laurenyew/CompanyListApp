@@ -1,11 +1,29 @@
 package bottlerocket.laurenyew.companylist.util;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+
+import bottlerocket.laurenyew.companylist.cache.LogoBitmapCache;
+import bottlerocket.laurenyew.companylist.services.LoadLogoBitmapAsyncTask;
 
 /**
  * Created by laurenyew on 4/2/16.
  */
-public class BitmapImageUtil {
+public class LoadLogoBitmapImageUtil {
+
+    public static void loadLogoBitmap(String url, ImageView imageView, ProgressBar progressBar) {
+
+        final Bitmap bitmap = LogoBitmapCache.getInstance().getBitmap(url);
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+        } else {
+            LoadLogoBitmapAsyncTask task = new LoadLogoBitmapAsyncTask(imageView, progressBar);
+            task.execute(url);
+        }
+    }
+
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image

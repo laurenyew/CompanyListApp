@@ -3,11 +3,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context=".detail.CompanyDetailActivity">
 
-    <FrameLayout
-        android:id="@+id/company_detail_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
+    <android.support.v7.widget.CardView
+        android:id="@+id/detail_company_logo_info_card_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="100dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="4dp">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/detail_store_logo_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:layout_centerVertical="true">
+
+                <ProgressBar
+                    android:id="@+id/detail_store_logo_loading_progress_bar"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:visibility="visible"/>
+
+                <ImageView
+                    android:id="@+id/detail_store_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
+
+
+
+            <TextView
+                android:id="@+id/detail_store_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@id/detail_store_logo_container"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/unknown" />
+
+            <View
+                android:id="@+id/detail_separator1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CFD8DC"
+                android:layout_below="@id/detail_store_name"
+                android:layout_toRightOf="@id/detail_store_logo_container"/>
+
+            <TextView
+                android:id="@+id/detail_store_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_below="@id/detail_separator1"
+                android:layout_toRightOf="@id/detail_store_logo_container"
+                android:textSize="14dp"
+                android:text="@string/unknown" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/detail_company_phone_card_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_below="@id/detail_company_logo_info_card_view"
+        android:elevation="100dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/detail_phone_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/phone_card_title" />
+
+            <View
+                android:id="@+id/detail_separator2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/detail_phone_title"
+                android:background="#CFD8DC" />
+
+            <TextView
+                android:id="@+id/detail_store_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_below="@id/detail_separator2"
+                android:textSize="14dp"
+                android:autoLink="phone"
+                android:text="@string/unknown" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>
