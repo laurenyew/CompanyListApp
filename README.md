@@ -20,3 +20,7 @@ Extra features:
 - Toolbar on CompanyList view to compare the image loading performance of Picasso (3rd party tool) and self-build AsyncTask + LruCache. Picasso seems to have better performance overall, but wanted to show a self-implemented solution without using a 3rd party tool. 
 NOTE: This comparison is limited since the Picasso cache is not cleared. Thus, after opening the Picasso tab once, subsequent uses of the Picasso tab will maintain its current cache.
 NOTE2: To allow for the comparison, the image/JSON caches will be cleared when switching tabs, causing a refresh fetch.
+- Bottle Rocket Themed Launch Icon/Splash Screens
+Sources: 
+Splash screen: https://s3.amazonaws.com/jobscore-assets/careers_site_header/header_bcdl7sSx4r5kjGiGalkWKP@2x.png
+Logo: https://www.linkedin.com/company/bottle-rocket
