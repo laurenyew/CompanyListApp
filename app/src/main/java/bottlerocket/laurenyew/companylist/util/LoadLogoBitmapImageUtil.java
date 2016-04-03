@@ -10,9 +10,17 @@ import bottlerocket.laurenyew.companylist.services.LoadLogoBitmapAsyncTask;
 
 /**
  * Created by laurenyew on 4/2/16.
+ *
+ * Util methods for loading logo bitmap image(s)
  */
 public class LoadLogoBitmapImageUtil {
 
+    /**
+     * Helper method to load logo bitmap. Uses cache if possible, otherwise, starts an async task to load the image.
+     * @param url
+     * @param imageView
+     * @param progressBar
+     */
     public static void loadLogoBitmap(String url, ImageView imageView, ProgressBar progressBar) {
 
         final Bitmap bitmap = LogoBitmapCache.getInstance().getBitmap(url);
@@ -24,6 +32,15 @@ public class LoadLogoBitmapImageUtil {
         }
     }
 
+    /**
+     * Helper method.
+     * Used by async task for loading bitmaps from url to try to sample loaded images down to a more managable size
+     *
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image

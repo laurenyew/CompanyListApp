@@ -43,6 +43,7 @@ public class CompanyPreviewViewHolder extends RecyclerView.ViewHolder implements
         Intent openCompanyDetail = new Intent(context, CompanyDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt(CompanyDetailActivity.COMPANY_DETAIL_CACHE_INDEX_KEY, cacheIndex);
-        context.startActivity(openCompanyDetail, bundle);
+        openCompanyDetail.putExtras(bundle);
+        context.startActivity(openCompanyDetail);
     }
 }

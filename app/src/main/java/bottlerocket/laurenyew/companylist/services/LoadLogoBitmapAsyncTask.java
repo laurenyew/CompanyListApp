@@ -73,9 +73,10 @@ import bottlerocket.laurenyew.companylist.util.LoadLogoBitmapImageUtil;
                     connection.setDoInput(true);
                     connection.connect();
                     InputStream input = connection.getInputStream();
+
+                    //Try to use sample size option to limit the size of the image if necessary
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inSampleSize = LoadLogoBitmapImageUtil.calculateInSampleSize(options,imageWidth, imageHeight);
-
                     logoBitmap = BitmapFactory.decodeStream(input, null, options);
 
 

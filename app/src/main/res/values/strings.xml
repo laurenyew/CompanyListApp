@@ -4,8 +4,11 @@
     <string name="company_detail_activity_label">Company Detail</string>
 
     <!--Company Detail Title Labels-->
-    <string name="phone_card_title">Phone Number</string>
-    <string name="address_card_title">Address</string>
+    <string name="detail_phone_card_title">Phone Number</string>
+    <string name="detail_address_card_title">Address</string>
+    <string name="detail_more_info_title">More Info</string>
+    <string name="detail_store_id_title">Store ID</string>
+    <string name="open_google_maps_button_title">Open in Google Maps</string>
 
     <!--Company Detail default info-->
     <string name="unknown">Unknown</string>
