@@ -48,9 +48,26 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
     public void onBindViewHolder(CompanyPreviewViewHolder holder, int position) {
 
         CompanyDetail detail = companyDetailCache.getDetail(position);
-        LoadLogoBitmapImageUtil.loadLogoBitmap(detail.getStoreLogoURL(), holder.mLogo, holder.mLogoProgressBar);
-        holder.mPhone.setText(detail.getPhone());
-        holder.mAddress.setText(detail.getAddress());
+        if(detail.getStoreLogoURL() != null) {
+            LoadLogoBitmapImageUtil.loadLogoBitmap(detail.getStoreLogoURL(), holder.mLogo, holder.mLogoProgressBar);
+        }
+
+        if(detail.getPhone()!= null) {
+            holder.mPhone.setText(detail.getPhone());
+        }
+        else
+        {
+            holder.mPhone.setVisibility(View.GONE);
+        }
+
+        if(detail.getAddress() != null)
+        {
+            holder.mAddress.setText(detail.getAddress());
+        }
+        else
+        {
+            holder.mAddress.setVisibility(View.GONE);
+        }
     }
 
     @Override

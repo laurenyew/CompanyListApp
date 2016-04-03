@@ -31,7 +31,6 @@ public class CompanyDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_company_detail);
-        getSupportActionBar().setHomeButtonEnabled(false);
 
         if (savedInstanceState == null) {
             detailIndex = getIntent().getIntExtra(COMPANY_DETAIL_CACHE_INDEX_KEY, -1);
