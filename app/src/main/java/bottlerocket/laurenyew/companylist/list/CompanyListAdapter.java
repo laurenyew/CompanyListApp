@@ -155,7 +155,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
                 final ProgressBar progressBar = progressBarWeakReference.get();
                 if(progressBar != null)
                 {
-//                    progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 
