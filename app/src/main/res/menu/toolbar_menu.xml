@@ -8,8 +8,8 @@
         android:enabled="false"
         />
     <item
-        android:id="@+id/action_ground_control"
-        android:title="GroundControl"
+        android:id="@+id/action_use_picasso"
+        android:title="Picasso"
         app:showAsAction="always"
         android:enabled="true"
         />

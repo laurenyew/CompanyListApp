@@ -8,21 +8,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.annotations.SerializedName;
+import com.squareup.picasso.Picasso;
 
 import bottlerocket.laurenyew.companylist.R;
 import bottlerocket.laurenyew.companylist.cache.CompanyDetailCache;
 import bottlerocket.laurenyew.companylist.cache.LogoBitmapCache;
 
 /**
- * TODO: Use BottleRocket's ground control
+ * Main activity. Uses a fragment & RecyclerView to show the company list. Uses an async task to
+ * fetch the company JSON. There is a toolbar available to switch between using Picasso or
+ * a self-build Async task/LruCache for downloading the associated bitmap images.
  */
 public class CompanyListActivity extends AppCompatActivity{
 
-    private enum SERVICE_TYPE {
-        ASYNC_TASK, GROUND_CONTROL
+    private enum PHOTO_LOAD_BACKGROUND_SERVICE {
+        ASYNC_TASK, PICASSO
     }
-    private SERVICE_TYPE currentServiceType = null;
-    private final SERVICE_TYPE defaultServiceType = SERVICE_TYPE.ASYNC_TASK;
+    private PHOTO_LOAD_BACKGROUND_SERVICE currentServiceType = null;
+    private final PHOTO_LOAD_BACKGROUND_SERVICE defaultServiceType = PHOTO_LOAD_BACKGROUND_SERVICE.ASYNC_TASK;
 
     private Menu toolbarMenu;
 
@@ -53,19 +56,19 @@ public class CompanyListActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        SERVICE_TYPE selectedServiceType = currentServiceType;
-        SERVICE_TYPE oldServiceType = currentServiceType;
+        PHOTO_LOAD_BACKGROUND_SERVICE selectedServiceType = currentServiceType;
+        PHOTO_LOAD_BACKGROUND_SERVICE oldServiceType = currentServiceType;
         switch(id)
         {
             case R.id.action_async_task: {
-                System.out.println("Open Async Task View");
-                selectedServiceType = SERVICE_TYPE.ASYNC_TASK;
+                System.out.println("Open Async Task View (self created)");
+                selectedServiceType = PHOTO_LOAD_BACKGROUND_SERVICE.ASYNC_TASK;
                 break;
 
             }
-            case R.id.action_ground_control: {
-                System.out.println("Open Ground Control View");
-                selectedServiceType = SERVICE_TYPE.GROUND_CONTROL;
+            case R.id.action_use_picasso: {
+                System.out.println("Open Picasso View (third party)");
+                selectedServiceType = PHOTO_LOAD_BACKGROUND_SERVICE.PICASSO;
                 break;
             }
         }
@@ -78,49 +81,44 @@ public class CompanyListActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    private void showCompanyListFragment(SERVICE_TYPE type)
+    private void showCompanyListFragment(PHOTO_LOAD_BACKGROUND_SERVICE type)
     {
         if(type != null && type != currentServiceType) {
+
+            //NOTE: Did not clear the picasso cache,
+            // so we can't really see the difference switching back and forth.
 
             //Clear the caches (so we can see the difference in the fragments when they reload.)
             CompanyDetailCache.getInstance().clear();
             LogoBitmapCache.getInstance().clear();
 
-            //Update the fragments
-            if (type == SERVICE_TYPE.ASYNC_TASK) {
-                if (findViewById(R.id.company_list_fragment_container) != null) {
-                    CompanyListFragment companyListFragment = new CompanyListFragment();
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.company_list_fragment_container, companyListFragment);
-                    transaction.commit();
+            //Update the fragment
+            if (findViewById(R.id.company_list_fragment_container) != null) {
+                CompanyListFragment companyListFragment = new CompanyListFragment();
+                Bundle args = new Bundle();
+                args.putBoolean(CompanyListFragment.USE_PICASSO_KEY, (type == PHOTO_LOAD_BACKGROUND_SERVICE.PICASSO));
+                companyListFragment.setArguments(args);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.company_list_fragment_container, companyListFragment);
+                transaction.commit();
 
-                    currentServiceType = SERVICE_TYPE.ASYNC_TASK;
+                currentServiceType = type;
                 }
-            } else if (type == SERVICE_TYPE.GROUND_CONTROL) {
-                if (findViewById(R.id.company_list_fragment_container) != null) {
-                    CompanyListFragmentWithGroundControl companyListFragment = new CompanyListFragmentWithGroundControl();
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.company_list_fragment_container, companyListFragment);
-                    transaction.commit();
-
-                    currentServiceType = SERVICE_TYPE.GROUND_CONTROL;
-                }
-            }
         }
     }
 
-    private void updateToolbarMenuItems(SERVICE_TYPE type)
+    private void updateToolbarMenuItems(PHOTO_LOAD_BACKGROUND_SERVICE type)
     {
         if(type != null && toolbarMenu != null)
         {
             //Update the menu item
             MenuItem asyncMenuItem = toolbarMenu.findItem(R.id.action_async_task);
             if (asyncMenuItem != null) {
-                asyncMenuItem.setEnabled(type != SERVICE_TYPE.ASYNC_TASK);
+                asyncMenuItem.setEnabled(type != PHOTO_LOAD_BACKGROUND_SERVICE.ASYNC_TASK);
             }
-            MenuItem groundControlMenuItem = toolbarMenu.findItem(R.id.action_ground_control);
+            MenuItem groundControlMenuItem = toolbarMenu.findItem(R.id.action_use_picasso);
             if (groundControlMenuItem != null) {
-                groundControlMenuItem.setEnabled(type != SERVICE_TYPE.GROUND_CONTROL);
+                groundControlMenuItem.setEnabled(type != PHOTO_LOAD_BACKGROUND_SERVICE.PICASSO);
             }
         }
     }

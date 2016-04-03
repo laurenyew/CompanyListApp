@@ -32,21 +32,30 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     private RecyclerView mCompanyListRecyclerView = null;
     private ProgressBar mCompanyListProgressBar = null;
 
+    public static final String USE_PICASSO_KEY = "using_picasso";
+    private boolean usePicasso = false;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+
+        Bundle args = getArguments();
+        usePicasso = args.getBoolean(USE_PICASSO_KEY, false);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fragment_company_list, container, false);
 
         mCompanyListProgressBar = (ProgressBar) view.findViewById(R.id.company_list_load_progress_bar);
 
         mCompanyListRecyclerView = (RecyclerView) view.findViewById(R.id.company_list_recycler_view);
         mCompanyListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mCompanyListRecyclerView.setAdapter(new CompanyListAdapter());
+        mCompanyListRecyclerView.setAdapter(new CompanyListAdapter(usePicasso));
 
         return view;
     }
@@ -54,7 +63,6 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     @Override
     public void onResume() {
         super.onResume();
-
 
         if(!isFetchListComplete()) {
             showProgressBar();
@@ -157,4 +165,6 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
             mCompanyListRecyclerView.setVisibility(View.VISIBLE);
         }
     }
+
+
 }

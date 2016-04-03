@@ -15,6 +15,8 @@ import bottlerocket.laurenyew.companylist.R;
 
 /**
  * Created by laurenyew on 4/2/16.
+ *
+ * Handles view click to open CompanyDetailActivity
  */
 public class CompanyPreviewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -37,7 +39,6 @@ public class CompanyPreviewViewHolder extends RecyclerView.ViewHolder implements
 
     @Override
     public void onClick(View v) {
-        System.out.println("onClick");
         Context context = v.getContext();
         int cacheIndex = getPosition();
         Intent openCompanyDetail = new Intent(context, CompanyDetailActivity.class);

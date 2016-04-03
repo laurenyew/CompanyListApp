@@ -13,7 +13,7 @@ public class DownloadedLogoDrawable extends ColorDrawable {
     public DownloadedLogoDrawable(LoadLogoBitmapAsyncTask logoDownloadertask) {
         super(Color.GRAY);
         loadLogoBitmapAsyncTaskReference =
-            new WeakReference<LoadLogoBitmapAsyncTask>(logoDownloadertask);
+            new WeakReference<>(logoDownloadertask);
     }
 
     public LoadLogoBitmapAsyncTask getLoadLogoBitmapAsyncTask() {
