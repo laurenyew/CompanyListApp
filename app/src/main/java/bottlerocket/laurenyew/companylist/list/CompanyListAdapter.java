@@ -1,18 +1,15 @@
 package bottlerocket.laurenyew.companylist.list;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
+import com.squareup.picasso.Picasso;
+
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import bottlerocket.laurenyew.companylist.R;
@@ -23,6 +20,8 @@ import bottlerocket.laurenyew.companylist.util.LoadLogoBitmapImageUtil;
 
 /**
  * Created by laurenyew on 4/2/16.
+ *
+ * RecyclerView.Adapter that uses AsyncTasks to load the images
  */
 public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewHolder> {
 
@@ -49,6 +48,14 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
 
         CompanyDetail detail = companyDetailCache.getDetail(position);
         if(detail.getStoreLogoURL() != null) {
+
+            /*
+            //If we used Picasso, we could use these 3 lines:
+                ImageView imageView = holder.mLogo;
+                Context context = imageView.getContext();
+                Picasso.with(context).load(detail.getStoreLogoURL()).into(imageView);
+             */
+
             LoadLogoBitmapImageUtil.loadLogoBitmap(detail.getStoreLogoURL(), holder.mLogo, holder.mLogoProgressBar);
         }
 

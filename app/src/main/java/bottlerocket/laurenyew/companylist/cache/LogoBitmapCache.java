@@ -10,7 +10,8 @@ import android.util.LruCache;
  *
  * Using Url as the key (similar stores may use same logo).
  *
- * TODO: Need to store images in database?
+ * Chose a LruCache in memory rather than a DiskLruCache
+ * because the number of images is relatively small.
  */
 public class LogoBitmapCache {
     private static LogoBitmapCache mInstance;

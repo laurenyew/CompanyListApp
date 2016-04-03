@@ -22,6 +22,8 @@ import bottlerocket.laurenyew.companylist.util.Constants;
 
 /**
  * Created by laurenyew on 4/1/16.
+ *
+ * Company List Fragment that uses AsyncTasks to fetch the Json data
  */
 public class CompanyListFragment extends android.support.v4.app.Fragment implements FetchCompanyListAsyncTask.FetchCompanyListUpdateListener{
 
