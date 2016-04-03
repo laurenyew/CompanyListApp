@@ -36,10 +36,6 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        if(!isFetchListComplete()) {
-            showProgressBar();
-            initListWithAsyncTask();
-        }
     }
 
     @Override
@@ -53,6 +49,16 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
         mCompanyListRecyclerView.setAdapter(new CompanyListAdapter());
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(!isFetchListComplete()) {
+            showProgressBar();
+            initListWithAsyncTask();
+        }
     }
 
     @Override
