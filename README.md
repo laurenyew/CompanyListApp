@@ -1,6 +1,6 @@
 #Company List Android App
 
-Goals: 
+## Goals: 
 * Employ best practices in:
 ** Material Design
 ** Background Threading
@@ -9,7 +9,7 @@ Goals:
 ** Layouts
 ** Cache Handling
 
-Features to spike
+## Features to spike
 - [ ] Use GroundControl to handle background threading (Need to add another feature that better puts GroundControl to the test. 
 - [ ] Try saving images to disk
 - [ ] No singleton pattern allowed
@@ -18,7 +18,7 @@ Features to spike
 
 ==================================================
 
-Original project/requirements from BottleRocketStudios(http://www.bottlerocketstudios.com/)
+*Original project/requirements from BottleRocketStudios* (http://www.bottlerocketstudios.com/)
 
 ==================================================
 
