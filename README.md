@@ -1,10 +1,35 @@
-# Bottle Rocket Android Developer Test
+#Company List Android App
 
-High level requirements
+Goals: 
+* Employ best practices in:
+** Material Design
+** Background Threading
+** Image Loading
+* Improve Performance in:
+** Layouts
+** Cache Handling
+
+Features to spike
+- [ ] Use GroundControl to handle background threading (Need to add another feature that better puts GroundControl to the test. 
+- [ ] Try saving images to disk
+- [ ] No singleton pattern allowed
+- [ ] Use lint/hierarchy viewer to fix performance of xml layouts
+- [ ] Create own Json endpoint
+
+==================================================
+
+Original project/requirements from BottleRocketStudios(http://www.bottlerocketstudios.com/)
+
+==================================================
+
+Background: Started off as Bottle Rocket Android Developer Coding Exercise.
+Completed in 3 days
+
+Original High level requirements
 * Fetch data from a web service and display the returned data in a ListView
 * Display the full details of a selected store on a separate screen
 
-#### List View Requirements
+#### Original List View Requirements
 - [x] Consume and parse the data JSON feed from url http://sandbox.bottlerocketapps.com/BR_Android_CodingExam_2015_Server/stores.json
 - [x] Cache the data using a method of your choice
 - [x] Display a message to the user if a data connection or cache is not available
