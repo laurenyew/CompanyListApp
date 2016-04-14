@@ -1,18 +1,26 @@
 package bottlerocket.laurenyew.companylist.list;
 
+import android.content.DialogInterface;
+import android.net.http.HttpResponseCache;
+import android.nfc.Tag;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 import bottlerocket.laurenyew.companylist.R;
 import bottlerocket.laurenyew.companylist.cache.CompanyDetailCache;
 import bottlerocket.laurenyew.companylist.cache.LogoBitmapCache;
+import bottlerocket.laurenyew.companylist.services.Result;
 
 /**
  * Main activity. Uses a fragment & RecyclerView to show the company list. Uses an async task to
@@ -20,12 +28,6 @@ import bottlerocket.laurenyew.companylist.cache.LogoBitmapCache;
  * a self-build Async task/LruCache for downloading the associated bitmap images.
  */
 public class CompanyListActivity extends AppCompatActivity{
-
-    private enum PHOTO_LOAD_BACKGROUND_SERVICE {
-        ASYNC_TASK, PICASSO
-    }
-    private PHOTO_LOAD_BACKGROUND_SERVICE currentServiceType = null;
-    private final PHOTO_LOAD_BACKGROUND_SERVICE defaultServiceType = PHOTO_LOAD_BACKGROUND_SERVICE.ASYNC_TASK;
 
     private Menu toolbarMenu;
 
@@ -35,8 +37,37 @@ public class CompanyListActivity extends AppCompatActivity{
         setContentView(R.layout.activity_company_list);
 
         //If not rotated, then show the company list fragment
+        //and set up the HttpResponseCache
         if (savedInstanceState == null) {
-            showCompanyListFragment(defaultServiceType);
+
+            final long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
+            //we don't care about security, so its ok to save in the external cache directory
+            final File httpCacheDir = new File(getExternalCacheDir(), "http");
+            try {
+                //Installing the httpResponseCache
+                Class.forName("android.net.http.HttpResponseCache")
+                        .getMethod("install", File.class, long.class)
+                        .invoke(null, httpCacheDir, httpCacheSize);
+                System.out.println("HttpResponseCache set up.");
+            }
+            catch(Exception e){
+                System.out.println("Could not set up HttpResponseCache");
+                //Show error dialog when cache is not available.
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setTitle(R.string.error_title);
+                    builder.setMessage(R.string.cache_connection_error_message);
+                // Add Ok Button
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+
+            showCompanyListFragment();
             //Setup toolbar and floating action button
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_top);
             setSupportActionBar(toolbar);
@@ -44,84 +75,29 @@ public class CompanyListActivity extends AppCompatActivity{
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        toolbarMenu = menu;
-        updateToolbarMenuItems(currentServiceType);
-        return true;
+    protected void onStop() {
+        HttpResponseCache cache = HttpResponseCache.getInstalled();
+        if (cache != null) {
+            cache.flush();
+        }
+        super.onStop();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        PHOTO_LOAD_BACKGROUND_SERVICE selectedServiceType = currentServiceType;
-        PHOTO_LOAD_BACKGROUND_SERVICE oldServiceType = currentServiceType;
-        switch(id)
-        {
-            case R.id.action_async_task: {
-                System.out.println("Open Async Task View (self created)");
-                selectedServiceType = PHOTO_LOAD_BACKGROUND_SERVICE.ASYNC_TASK;
-                break;
-
-            }
-            case R.id.action_use_picasso: {
-                System.out.println("Open Picasso View (third party)");
-                selectedServiceType = PHOTO_LOAD_BACKGROUND_SERVICE.PICASSO;
-                break;
-            }
-        }
-
-        if(selectedServiceType != oldServiceType) {
-            showCompanyListFragment(selectedServiceType);
-            updateToolbarMenuItems(selectedServiceType);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void showCompanyListFragment(PHOTO_LOAD_BACKGROUND_SERVICE type)
+    private void showCompanyListFragment()
     {
-        if(type != null && type != currentServiceType) {
-
-            //NOTE: Did not clear the picasso cache,
-            // so we can't really see the difference switching back and forth.
-
-            //Clear the caches (so we can see the difference in the fragments when they reload.)
-            CompanyDetailCache.getInstance().clear();
-            LogoBitmapCache.getInstance().clear();
-
             //Update the fragment
             if (findViewById(R.id.company_list_fragment_container) != null) {
                 CompanyListFragment companyListFragment = new CompanyListFragment();
                 Bundle args = new Bundle();
-                args.putBoolean(CompanyListFragment.USE_PICASSO_KEY, (type == PHOTO_LOAD_BACKGROUND_SERVICE.PICASSO));
                 companyListFragment.setArguments(args);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.company_list_fragment_container, companyListFragment);
                 transaction.commit();
-
-                currentServiceType = type;
                 }
-        }
+
     }
 
-    private void updateToolbarMenuItems(PHOTO_LOAD_BACKGROUND_SERVICE type)
-    {
-        if(type != null && toolbarMenu != null)
-        {
-            //Update the menu item
-            MenuItem asyncMenuItem = toolbarMenu.findItem(R.id.action_async_task);
-            if (asyncMenuItem != null) {
-                asyncMenuItem.setEnabled(type != PHOTO_LOAD_BACKGROUND_SERVICE.ASYNC_TASK);
-            }
-            MenuItem groundControlMenuItem = toolbarMenu.findItem(R.id.action_use_picasso);
-            if (groundControlMenuItem != null) {
-                groundControlMenuItem.setEnabled(type != PHOTO_LOAD_BACKGROUND_SERVICE.PICASSO);
-            }
-        }
-    }
+
 
 
 

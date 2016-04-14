@@ -39,17 +39,18 @@ public class CompanyDetailCache {
 
     public int size()
     {
-        return mCache.getStores().size();
+        int size = 0;
+
+        if(mCache != null)
+        {
+            size = mCache.getStores().size();
+        }
+        return size;
     }
 
     public boolean isEmpty()
     {
         return size() <= 0;
-    }
-
-    public void clear()
-    {
-        mCache.getStores().clear();
     }
 
 

@@ -74,6 +74,10 @@ public class LoadLogoBitmapAsyncTask extends AsyncTask<String, Void, Bitmap> {
                 URL url = new URL(urlPath);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);
+
+                //Using the HttpResponseCache, show the stale cache until
+                //we get a result
+                connection.setUseCaches(true);
                 connection.connect();
                 InputStream input = connection.getInputStream();
 

@@ -16,6 +16,11 @@
 - [ ] Use lint/hierarchy viewer to fix performance of xml layouts
 - [ ] Create own Json endpoint
 
+- [ ] Get rid of singleton caches
+- [x] Use HttpResponseCache for request calls
+- [ ] Group companies by brand and in detail view show list of companies
+- [ ] Create SQLite database so we can query? 
+
 ==================================================
 
 ## NOTES:

@@ -70,10 +70,11 @@ import bottlerocket.laurenyew.companylist.model.Stores;
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setRequestProperty("Content-length", "0");
-                urlConnection.setUseCaches(false);
+                urlConnection.setUseCaches(true);
                 urlConnection.setAllowUserInteraction(false);
                 urlConnection.setConnectTimeout(Constants.DEFAULT_CONNECTION_TIMEOUT);
                 urlConnection.setReadTimeout(Constants.DEFAULT_CONNECTION_TIMEOUT);
+
                 urlConnection.connect();
                 int status = urlConnection.getResponseCode();
 

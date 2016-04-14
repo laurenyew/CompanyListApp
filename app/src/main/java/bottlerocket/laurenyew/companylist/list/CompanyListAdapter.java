@@ -25,13 +25,11 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
     private CompanyDetailCache companyDetailCache;
     private LogoBitmapCache logoBitmapCache;
 
-    private boolean usePicasso;
 
-    public CompanyListAdapter(boolean usePicasso)
+    public CompanyListAdapter()
     {
         companyDetailCache = CompanyDetailCache.getInstance();
         logoBitmapCache = LogoBitmapCache.getInstance();
-        this.usePicasso = usePicasso;
     }
 
     @Override
@@ -48,18 +46,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyPreviewViewH
 
         CompanyDetail detail = companyDetailCache.getDetail(position);
         if(detail.getStoreLogoURL() != null) {
-
-            //Wasn't sure if 3rd party libraries were allowed for this coding exercise
-            //so created 2 different comparable techniques.
-            // Picasso has its own caching system and loads images in parallel
-            //The Async task was self built using known best practices with RecyclerView lists
-            if (usePicasso) {
-                ImageView imageView = holder.mLogo;
-                Context context = imageView.getContext();
-                Picasso.with(context).load(detail.getStoreLogoURL()).into(imageView);
-            } else {
-                LoadLogoBitmapImageUtil.loadLogoBitmap(detail.getStoreLogoURL(), holder.mLogo, holder.mLogoProgressBar);
-            }
+            LoadLogoBitmapImageUtil.loadLogoBitmap(detail.getStoreLogoURL(), holder.mLogo, holder.mLogoProgressBar);
         }
 
         if(detail.getPhone()!= null) {

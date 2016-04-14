@@ -32,17 +32,11 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
     private RecyclerView mCompanyListRecyclerView = null;
     private ProgressBar mCompanyListProgressBar = null;
 
-    public static final String USE_PICASSO_KEY = "using_picasso";
-    private boolean usePicasso = false;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
-        Bundle args = getArguments();
-        usePicasso = args.getBoolean(USE_PICASSO_KEY, false);
     }
 
     @Override
@@ -55,7 +49,7 @@ public class CompanyListFragment extends android.support.v4.app.Fragment impleme
 
         mCompanyListRecyclerView = (RecyclerView) view.findViewById(R.id.company_list_recycler_view);
         mCompanyListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mCompanyListRecyclerView.setAdapter(new CompanyListAdapter(usePicasso));
+        mCompanyListRecyclerView.setAdapter(new CompanyListAdapter());
 
         return view;
     }
